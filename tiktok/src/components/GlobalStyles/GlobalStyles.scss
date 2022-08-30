@@ -3,12 +3,16 @@
 
 :root {
     --primary: #fe2c55;
+    --default-layout-header-height: 60px;
+    --default-layout-width: 1150px;
 }
 html {
     font-size: 62.5%;
 }
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body {
     font-family: 'Roboto', sans-serif;
