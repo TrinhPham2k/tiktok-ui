@@ -17,7 +17,10 @@
 }
 .logo {
 }
-
+.search,
+.search-result {
+    width: 361px;
+}
 .search {
     position: relative;
     width: 361px;
@@ -56,7 +59,12 @@
         border-color: rgba(22, 24, 35, 0.2);
     }
 }
-
+.search-title {
+    color: #8a8b91;
+    padding: 5px 12px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
 .clear,
 .loading {
     position: absolute;
