@@ -2,7 +2,7 @@ import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faMagnifyingGlass, faSpinner, faSignIn } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 
 import images from '~/assets/images';
@@ -10,6 +10,7 @@ import images from '~/assets/images';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { useEffect, useState } from 'react';
 import AccountItem from '../AccountItem';
+import Button from '../Button';
 const cx = classNames.bind(styles);
 function Header() {
     const [searchresult, setSearchResult] = useState([]);
@@ -51,7 +52,15 @@ function Header() {
                         </button>
                     </div>
                 </Tippy>
-                <div className={cx('action')}></div>
+                <div className={cx('action')}>
+                    <Button text>Upload</Button>
+                    <Button primary className={cx('customer-login')} rightIcon={<FontAwesomeIcon icon={faSignIn} />}>
+                        Login
+                    </Button>
+                    <Button outline disabled>
+                        Register
+                    </Button>
+                </div>
             </div>
         </header>
     );
