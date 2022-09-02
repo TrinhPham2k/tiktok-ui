@@ -14,9 +14,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 var(--default-layout-horizontal-spaces);
 }
-.logo {
-}
+
 .search,
 .search-result {
     width: 361px;
@@ -95,4 +95,12 @@
 }
 .customer-login {
     color: blue;
+}
+
+.more-btn {
+    margin-left: 28px;
+    font-size: 2rem;
+    padding: 4px 8px;
+    background-color: transparent;
+    cursor: pointer;
 }

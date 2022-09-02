@@ -2,7 +2,6 @@ import styles from './Button.module.scss';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
-
 function Button({
     to,
     href,
@@ -27,6 +26,7 @@ function Button({
         onClick,
         ...passProps,
     };
+
     // code xử lý nếu button bị disabled thì loại bỏ tất cả hành vi onClick, onMounse,....it mean remove all event listener
     if (disabled) {
         Object.keys(props).forEach((key) => {
@@ -43,7 +43,9 @@ function Button({
         Comp = 'a';
     }
     const classes = cx('wrapper', {
-        primary,
+        //viết theo kiểu enhand object literal
+        primary: primary,
+        // [styles.primary]: primary,
         text,
         outline,
         small,
