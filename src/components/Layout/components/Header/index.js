@@ -10,7 +10,6 @@ import {
     faEllipsisVertical,
     faEarthAsia,
     faCircleQuestion,
-    faCloudUpload,
     faUser,
     faGear,
     faCoins,
@@ -29,6 +28,8 @@ import Button from '../Button';
 import Menu from '~/components/Popper/Menu';
 import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
 
+import { UploadIcon } from '~/components/Icons';
+import Image from '../Image';
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
     {
@@ -141,7 +142,7 @@ function Header() {
                             {/* viết theo kiểu default của tippy thì chỉ dc viết 1 element còn nếu muốn viết nhiều ele thì dùng headless render ra mới được */}
                             <Tippy delay={[0, 500]} content="Upload videos" placement="bottom">
                                 <button className={cx('actions-btn')}>
-                                    <FontAwesomeIcon icon={faCloudUpload} />
+                                    <UploadIcon />
                                 </button>
                                 {/* <button className={cx('actions-btn')}>
                                     <FontAwesomeIcon icon={faMessage} />
@@ -165,10 +166,11 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/d5d7b58b1a7f01f757e6639d0f9aeb83~c5_100x100.jpeg?x-expires=1662264000&x-signature=FRwrAKK%2BJrscV19kZXP2ciomsg0%3D"
+                            <Image
+                                src="httpssss://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/d5d7b58b1a7f01f757e6639d0f9aeb83~c5_100x100.jpeg?x-expires=1662264000&x-signature=FRwrAKK%2BJrscV19kZXP2ciomsg0%3D"
                                 className={cx('user-avatar')}
                                 alt=""
+                                fallBack="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
                             />
                         ) : (
                             <button className={cx('more-btn')}>
