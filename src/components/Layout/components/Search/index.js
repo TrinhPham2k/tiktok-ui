@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import { useDebounce } from '~/hooks';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -8,6 +10,10 @@ import { Wrapper as PopperWrapper } from '~/components/Popper';
 
 import styles from './Search.module.scss';
 import classNames from 'classnames/bind';
+
+// import * as request from '~/utils/request';
+import * as apiServices from '~/apiServices/searchServices';
+
 const cx = classNames.bind(styles);
 
 function Search() {
@@ -16,23 +22,88 @@ function Search() {
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
 
+    const debounced = useDebounce(searchValue, 500);
+
     const inputRef = useRef();
     useEffect(() => {
         // đây dùng để kiểm tra nếu k tồn tại thì thoát và cắt bỏ dấu cách nếu ng dùng nhập dấu cách
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             // set về mảng rỗng để xóa đi kí tự cuối cùng thì nó cũng ẩn list kết qur tìm kiếm cũ phía trc
             setSearchResult([]);
             return;
         }
+
         setLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, [searchValue]);
+
+        // cach 1: dung fetch
+        // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
+        //     .then((res) => res.json())
+        //     .then((res) => {
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     })
+        //     .catch(() => setLoading(false));
+
+        // dung axios vs promise
+        // request
+        //     .get('users/search', {
+        //         params: {
+        //             q: debounced,
+        //             type: 'less',
+        //         },
+        //     })
+        //     .then((res) => {
+        //         // console.log(res.data.data);
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     })
+        //     .catch(() => {
+        //         setLoading(false);
+        //     });
+
+        //  dung axios vs async await
+
+        // const fetchApi = async () => {
+        //     try {
+        //         const res = await request.get('users/search', {
+        //             params: {
+        //                 q: debounced,
+        //                 type: 'less',
+        //             },
+        //         });
+        //         setSearchResult(res.data);
+        //         setLoading(false);
+        //     } catch (error) {
+        //         setLoading(false);
+        //     }
+        // };
+
+        // fetchApi();
+
+        // tach file goi tu aip services
+
+        const fetApi = async () => {
+            setLoading(true);
+            const result = await apiServices.search(debounced);
+            setSearchResult(result.data);
+            setLoading(false);
+        };
+        fetApi();
+    }, [debounced]);
+
+    const handleSearch = (e) => {
+        const searchValue = e.target.value;
+        if (searchValue.startsWith(' ')) {
+            return;
+        }
+        setSearchValue(searchValue);
+
+        // cos thể viết ngược lại như sau
+
+        // if (!searchValue.startsWith(' ')) {
+        //     setSearchValue(searchValue);
+        // }
+    };
 
     const handleClear = () => {
         setSearchValue('');
@@ -67,7 +138,7 @@ function Search() {
                     placeholder="Search acounts and videos"
                     spellCheck={false}
                     value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleSearch}
                     onFocus={() => setShowResult(true)}
                 />
                 {!!searchValue && !loading && (
@@ -78,7 +149,7 @@ function Search() {
 
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
             </div>

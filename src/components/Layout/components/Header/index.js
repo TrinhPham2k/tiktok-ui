@@ -1,6 +1,8 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 
+import routerConfig from '~/config/routes';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSignIn,
@@ -24,6 +26,7 @@ import { faKeyboard } from '@fortawesome/free-regular-svg-icons';
 import { UploadIcon, MessageIcon, InboxIcon } from '~/components/Icons';
 import Image from '../Image';
 import Search from '../Search';
+import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
     {
@@ -93,9 +96,10 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
+                <Link to={routerConfig.home} className={cx('logo')}>
                     <img src={images.logo} alt=" " />
-                </div>
+                </Link>
+
                 <Search />
                 <div className={cx('action')}>
                     {currentUser ? (
