@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Following() {
-    return <div>Following</div>;
+function Home() {
+    return <div style={{ height: 2000 }}>Home</div>;
 }
 
-export default Following;
+export default Home;

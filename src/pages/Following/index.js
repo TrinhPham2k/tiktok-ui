@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Home() {
-    return <div>Home</div>;
+function Following() {
+    return <div>Following</div>;
 }
 
-export default Home;
+export default Following;

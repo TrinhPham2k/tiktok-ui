@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import classNames from 'classnames/bind';
 
-import routerConfig from '~/config/routes';
+import config from '~/config';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -35,6 +35,16 @@ const MENU_ITEMS = [
         children: {
             title: 'Languagle',
             data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vn',
+                    title: 'VietNames',
+                },
                 {
                     type: 'language',
                     code: 'en',
@@ -96,7 +106,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routerConfig.home} className={cx('logo')}>
+                <Link to={config.routes.home} className={cx('logo')}>
                     <img src={images.logo} alt=" " />
                 </Link>
 
